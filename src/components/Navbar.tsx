@@ -24,6 +24,7 @@ const menuItems = [
   { label: 'Home', path: '/' },
   { label: 'How It Works', path: '/how-it-works' },
   { label: 'Apply', path: '/apply' },
+  { label: 'Driving Lessons', path: '/driving-lessons' },
   { label: 'Theory Test', path: '/theory-test' },
   { label: 'Simulator Test', path: '/simulator-test' },
 ];
