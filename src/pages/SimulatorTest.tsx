@@ -13,10 +13,22 @@ import {
   Paper,
   TextField,
   Grid,
+  Card,
+  CardContent,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
   Snackbar,
   Alert,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import SecurityIcon from '@mui/icons-material/Security';
+import SpeedIcon from '@mui/icons-material/Speed';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import SensorsIcon from '@mui/icons-material/Sensors';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { styled } from '@mui/material/styles';
 
 const locations = [
@@ -104,7 +116,12 @@ const SimulatorTest = () => {
   };
 
   const handleConfirmBooking = () => {
+    // Here you would typically make an API call to save the booking
+    console.log('Form submitted:', bookingData);
+    
+    // Show success message
     setShowSuccess(true);
+    
     // Reset the form after 2 seconds
     setTimeout(() => {
       setBookingData({
@@ -182,18 +199,34 @@ const SimulatorTest = () => {
       case 3:
         return (
           <Box>
-            <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-              Booking Summary
-            </Typography>
-            <Typography sx={{ mb: 2 }}>Location: {bookingData.location}</Typography>
-            <Typography sx={{ mb: 2 }}>
-              Date: {new Date(bookingData.date).toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })}
-            </Typography>
-            <Typography sx={{ mb: 2 }}>Time: {bookingData.timeSlot}</Typography>
+            <Typography variant="h6" gutterBottom>Review Your Booking</Typography>
+            
+            <Card sx={{ mb: 2 }}>
+              <CardContent>
+                <Typography variant="h6" color="primary" gutterBottom>
+                  Booking Details
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <Typography variant="subtitle2">Location</Typography>
+                    <Typography>{bookingData.location}</Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography variant="subtitle2">
+                      Date: {new Date(bookingData.date).toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography variant="subtitle2">Time</Typography>
+                    <Typography>{bookingData.timeSlot}</Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
           </Box>
         );
       default:
@@ -204,30 +237,172 @@ const SimulatorTest = () => {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h3" align="center" gutterBottom>
-        Book Simulator Test
+        Simulator Test
       </Typography>
       <Typography variant="body1" align="center" color="text.secondary" paragraph>
-        Select your preferred location, date, and time slot for the simulator test
+        Experience our state-of-the-art driving simulator for comprehensive vehicle testing
       </Typography>
 
-      <Paper sx={{ p: 4, mt: 4 }}>
+      {/* Simulator Features Section */}
+      <Paper sx={{ p: 4, mb: 4 }}>
+        <Typography variant="h4" gutterBottom color="primary">
+          Advanced Simulator System
+        </Typography>
+        <Typography variant="body1" paragraph>
+          Our simulator system is designed to provide a 100% realistic driving experience while ensuring complete security and eliminating human intervention. Here's how we achieve this:
+        </Typography>
+
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom color="primary">
+                  <SecurityIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
+                  Security Features
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Biometric Authentication"
+                      secondary="Fingerprint and facial recognition for candidate verification"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="AI-Powered Monitoring"
+                      secondary="Real-time behavior analysis to detect any suspicious activities"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Secure Data Transmission"
+                      secondary="End-to-end encryption for all test data and results"
+                    />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom color="primary">
+                  <DirectionsCarIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
+                  Realistic Simulation
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <SpeedIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Advanced Physics Engine"
+                      secondary="Accurate vehicle dynamics and road conditions simulation"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <SensorsIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Multi-Sensory Feedback"
+                      secondary="Realistic force feedback, sound, and visual effects"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <DirectionsCarIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Vehicle-Specific Testing"
+                      secondary="Support for all vehicle types (car, motorcycle, truck, bus)"
+                    />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
+        <Divider sx={{ my: 4 }} />
+
+        <Typography variant="h5" gutterBottom color="primary">
+          How It Works
+        </Typography>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Automated Testing Process"
+              secondary="The entire test is conducted by our AI system, eliminating human bias and intervention"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Real-Time Assessment"
+              secondary="Continuous evaluation of driving skills, traffic rule adherence, and safety practices"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Comprehensive Test Scenarios"
+              secondary="Tests cover various driving conditions, weather, and emergency situations"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Instant Results"
+              secondary="Detailed performance report generated immediately after test completion"
+            />
+          </ListItem>
+        </List>
+      </Paper>
+
+      {/* Booking Section */}
+      <Paper sx={{ p: 4 }}>
+        <Typography variant="h4" gutterBottom color="primary">
+          Book Your Simulator Test
+        </Typography>
+        <Typography variant="body1" paragraph>
+          Select your preferred location and time slot for the simulator test
+        </Typography>
+
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
           {steps.map((label, index) => (
             <Step key={label}>
-              <StyledStepLabel
-                StepIconComponent={index < activeStep ? CustomStepIcon : undefined}
-              >
+              <StyledStepLabel StepIconComponent={CustomStepIcon}>
                 {label}
               </StyledStepLabel>
             </Step>
           ))}
         </Stepper>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 4 }}>
+        <Box sx={{ mt: 4, mb: 4 }}>
           {renderStepContent()}
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4, gap: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
           {activeStep > 0 && (
             <Button
               onClick={handleBack}
@@ -246,7 +421,6 @@ const SimulatorTest = () => {
             <Button
               variant="contained"
               onClick={handleConfirmBooking}
-              disabled={!isStepComplete()}
               sx={{
                 borderRadius: '20px',
                 px: 4,
@@ -271,13 +445,14 @@ const SimulatorTest = () => {
         </Box>
       </Paper>
 
+      {/* Add Snackbar for success notification */}
       <Snackbar
         open={showSuccess}
         autoHideDuration={2000}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert severity="success" sx={{ width: '100%' }}>
-          Booking confirmed successfully!
+          Booking confirmed successfully! You will receive a confirmation email shortly.
         </Alert>
       </Snackbar>
     </Container>

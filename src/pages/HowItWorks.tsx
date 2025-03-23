@@ -3,112 +3,293 @@ import {
   Container,
   Typography,
   Box,
-  Grid,
-  Paper,
   Stepper,
   Step,
   StepLabel,
-  StepContent,
+  Paper,
+  Grid,
+  Card,
+  CardContent,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import SchoolIcon from '@mui/icons-material/School';
-import EventIcon from '@mui/icons-material/Event';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import BadgeIcon from '@mui/icons-material/Badge';
+import ComputerIcon from '@mui/icons-material/Computer';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { styled } from '@mui/material/styles';
 
 const steps = [
-  {
-    label: 'Register and Complete Profile',
-    description: 'Create an account and fill in your personal details. Link your Aadhaar for identity verification.',
-    icon: <PersonIcon />,
-  },
-  {
-    label: 'Book Training Sessions',
-    description: 'Schedule training at an approved driving school or complete our online theory courses.',
-    icon: <SchoolIcon />,
-  },
-  {
-    label: 'Book Test Date',
-    description: 'Select your preferred testing center and available time slot.',
-    icon: <EventIcon />,
-  },
-  {
-    label: 'Take Automated Test',
-    description: 'Complete computer-based theory test and sensor-monitored practical driving test.',
-    icon: <AssignmentIcon />,
-  },
-  {
-    label: 'Receive Digital License',
-    description: 'Upon passing, receive your digital license immediately with a physical copy mailed to your address.',
-    icon: <BadgeIcon />,
-  },
+  'Apply for Learner\'s License',
+  'Take Theory Test',
+  'Complete Simulator Training',
+  'Apply for Driving License',
+  'Get Your License',
 ];
+
+const StyledStepLabel = styled(StepLabel)(({ theme }) => ({
+  '& .MuiStepLabel-iconContainer': {
+    '& .MuiStepIcon-root': {
+      color: '#E0E0E0',
+      '&.Mui-active': {
+        color: theme.palette.primary.main,
+      },
+      '&.Mui-completed': {
+        color: theme.palette.primary.main,
+      },
+    },
+  },
+}));
 
 const HowItWorks = () => {
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <Typography variant="h1" align="center" gutterBottom>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Typography variant="h3" align="center" gutterBottom>
         How It Works
       </Typography>
-
-      <Typography variant="h5" align="center" color="text.secondary" paragraph>
-        Follow these simple steps to get your driving license
+      <Typography variant="body1" align="center" color="text.secondary" paragraph>
+        Follow these simple steps to get your driving license in India
       </Typography>
 
-      <Box sx={{ mt: 8 }}>
-        <Stepper orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={index} active={true}>
-              <StepLabel StepIconComponent={() => (
-                <Box sx={{ color: 'primary.main' }}>
-                  {step.icon}
-                </Box>
-              )}>
-                <Typography variant="h6">{step.label}</Typography>
-              </StepLabel>
-              <StepContent>
-                <Typography color="text.secondary">
-                  {step.description}
-                </Typography>
-              </StepContent>
+      {/* Process Steps */}
+      <Paper sx={{ p: 4, mb: 4 }}>
+        <Stepper activeStep={-1} alternativeLabel sx={{ mb: 4 }}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StyledStepLabel>{label}</StyledStepLabel>
             </Step>
           ))}
         </Stepper>
-      </Box>
 
-      <Box sx={{ mt: 8 }}>
-        <Typography variant="h4" gutterBottom>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom color="primary">
+                  <DirectionsCarIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
+                  Learner's License
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <CheckCircleIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Apply Online"
+                      secondary="Fill out the application form with required documents"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <CheckCircleIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Document Verification"
+                      secondary="Submit proof of age, address, and identity"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <CheckCircleIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Theory Test"
+                      secondary="Take the online theory test to get your learner's license"
+                    />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom color="primary">
+                  <SchoolIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
+                  Training & Testing
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <CheckCircleIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Simulator Training"
+                      secondary="Complete mandatory simulator training sessions"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <CheckCircleIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Practical Training"
+                      secondary="Learn driving skills from certified instructors"
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <CheckCircleIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary="Final Test"
+                      secondary="Take the practical driving test"
+                    />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Paper>
+
+      {/* Requirements Section */}
+      <Paper sx={{ p: 4, mb: 4 }}>
+        <Typography variant="h4" gutterBottom color="primary">
           Required Documents
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" gutterBottom>
-                Identity Documents
-              </Typography>
-              <ul>
-                <li>Aadhaar Card</li>
-                <li>PAN Card</li>
-                <li>Passport (if available)</li>
-                <li>Voter ID (if available)</li>
-              </ul>
-            </Paper>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Identity Proof
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Aadhaar Card" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="PAN Card" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Passport" />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" gutterBottom>
-                Address Proof
-              </Typography>
-              <ul>
-                <li>Utility Bill (Electricity/Water)</li>
-                <li>Bank Statement</li>
-                <li>Rent Agreement</li>
-                <li>Property Tax Receipt</li>
-              </ul>
-            </Paper>
+
+          <Grid item xs={12} md={4}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Address Proof
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Utility Bill" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Bank Statement" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Rental Agreement" />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Card sx={{ height: '100%' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Additional Documents
+                </Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Medical Certificate" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Passport Size Photos" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <VerifiedUserIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Application Form" />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
-      </Box>
+      </Paper>
+
+      {/* Important Notes */}
+      <Paper sx={{ p: 4 }}>
+        <Typography variant="h4" gutterBottom color="primary">
+          Important Notes
+        </Typography>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Age Requirements"
+              secondary="Must be at least 18 years old for a car license and 16 years for a motorcycle license"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Validity"
+              secondary="Learner's license is valid for 6 months from the date of issue"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Training Period"
+              secondary="Minimum 30 days of training required before applying for a permanent license"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckCircleIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Test Requirements"
+              secondary="Must pass both theory and practical tests to obtain the license"
+            />
+          </ListItem>
+        </List>
+      </Paper>
     </Container>
   );
 };

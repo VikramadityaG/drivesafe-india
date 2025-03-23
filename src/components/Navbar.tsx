@@ -9,16 +9,42 @@ import {
   Menu,
   MenuItem,
   Avatar,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import MenuIcon from '@mui/icons-material/Menu';
 
+const menuItems = [
+  { label: 'Home', path: '/' },
+  { label: 'How It Works', path: '/how-it-works' },
+  { label: 'Apply', path: '/apply' },
+  { label: 'Theory Test', path: '/theory-test' },
+  { label: 'Simulator Test', path: '/simulator-test' },
+];
+
 const Navbar = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileAnchorEl, setMobileAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setMobileOpen(false);
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -43,43 +69,65 @@ const Navbar = () => {
     handleClose();
   };
 
-  const menuItems = [
-    { label: 'Home', path: '/' },
-    { label: 'How It Works', path: '/how-it-works' },
-    ...(user
-      ? [
-          { label: 'Apply', path: '/apply' },
-          { label: 'Driving Lessons', path: '/driving-lessons' },
-          { label: 'Theory Test', path: '/theory-test' },
-          { label: 'Practical Test', path: '/practical-test' },
-          { label: 'Simulator Test', path: '/simulator-test' },
-        ]
-      : []),
-  ];
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      <Typography variant="h6" sx={{ my: 2 }}>
+        DriveSafe India
+      </Typography>
+      <List>
+        {menuItems.map((item) => (
+          <ListItem key={item.label} disablePadding>
+            <ListItemText primary={item.label} />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="default" elevation={1}>
       <Toolbar>
         <Typography
           variant="h6"
           component="div"
           sx={{ flexGrow: 1, cursor: 'pointer' }}
-          onClick={() => navigate('/')}
+          onClick={() => handleNavigation('/')}
         >
           DriveSafe India
         </Typography>
 
+        {isMobile ? (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+        ) : (
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            {menuItems.map((item) => (
+              <Button
+                key={item.label}
+                color="inherit"
+                onClick={() => handleNavigation(item.path)}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+        )}
+
         {/* Desktop Menu */}
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          {menuItems.map((item) => (
-            <Button
-              key={item.path}
-              color="inherit"
-              onClick={() => navigate(item.path)}
-            >
-              {item.label}
-            </Button>
-          ))}
           {user ? (
             <>
               <IconButton
@@ -117,9 +165,6 @@ const Navbar = () => {
                 </MenuItem>
                 <MenuItem onClick={() => { navigate('/theory-test'); handleClose(); }}>
                   Theory Test
-                </MenuItem>
-                <MenuItem onClick={() => { navigate('/practical-test'); handleClose(); }}>
-                  Practical Test
                 </MenuItem>
                 <MenuItem onClick={() => { navigate('/simulator-test'); handleClose(); }}>
                   Simulator Test
@@ -192,6 +237,21 @@ const Navbar = () => {
           </Menu>
         </Box>
       </Toolbar>
+      <Drawer
+        variant="temporary"
+        anchor="right"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+        }}
+      >
+        {drawer}
+      </Drawer>
     </AppBar>
   );
 };
